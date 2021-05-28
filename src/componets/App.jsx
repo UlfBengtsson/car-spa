@@ -86,6 +86,7 @@ class App extends Component {
       cars.splice(cars.indexOf(car), 1);
       this.setState({
         carList: cars,
+        detailsCar: null,
       });
     }
   };
