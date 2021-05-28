@@ -2,3 +2,7 @@
   margin-top: 60px;
   margin-bottom: 60px;
 }
+
+.middle-bar {
+  border-right: solid black;
+}

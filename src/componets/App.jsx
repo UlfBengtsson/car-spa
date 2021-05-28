@@ -3,12 +3,14 @@ import Header from "./Header";
 import Footer from "./Footer";
 import CarTable from "./CarTable";
 import CarDetails from "./CarDetails";
+import CarCreate from "./CarCreate";
 
 import "../css/App.css";
 
 class App extends Component {
   state = {
     detailsCar: null,
+    createCar: false,
     carList: [
       {
         id: 1,
@@ -91,6 +93,38 @@ class App extends Component {
     }
   };
 
+  createCar = () => {
+    this.setState({
+      createCar: true,
+    });
+  };
+
+  addCar = (car) => {
+    const carList = this.state.carList;
+    const newId =
+      carList.reduce((rowCar, highest) => {
+        if (rowCar.id > highest.id) {
+          return rowCar.id;
+        }
+        return highest;
+      }).id + 1; //plus 1 to make new id higher then any id currently in carList.
+    //console.log("new Id: ", newId);
+    car.id = newId;
+
+    carList.push(car);
+
+    this.setState({
+      carList: carList,
+      createCar: false,
+    });
+  };
+
+  closeCreate = () => {
+    this.setState({
+      createCar: false,
+    });
+  };
+
   render() {
     const sideElement =
       this.state.detailsCar != null ? (
@@ -99,8 +133,15 @@ class App extends Component {
           closeDetails={this.closeDetails}
           deleteCar={this.deleteCar}
         />
+      ) : this.state.createCar ? (
+        <CarCreate addCar={this.addCar} closeCreate={this.closeCreate} />
       ) : (
-        <p>Click on Details button to see more information here.</p>
+        <div>
+          <button onClick={this.createCar} className="btn btn-success">
+            Add Car
+          </button>
+          <p>Click on Details button to see more information here.</p>
+        </div>
       );
 
     return (

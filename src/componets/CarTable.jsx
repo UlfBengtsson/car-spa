@@ -19,7 +19,7 @@ const CarTable = (props) => {
   });
 
   return (
-    <div className="col-md-6">
+    <div className="col-md-6 middle-bar">
       <table className="table table-striped table-bordered">
         <thead className="thead-dark">
           <tr>
