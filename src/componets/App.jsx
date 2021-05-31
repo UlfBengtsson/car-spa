@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import CarTable from "./CarTable";
 import CarDetails from "./CarDetails";
 import CarCreate from "./CarCreate";
+import getCars from "../api/carsApi";
 
 import "../css/App.css";
 
@@ -13,6 +14,13 @@ class App extends Component {
     createCar: false,
     carList: [],
   };
+
+  componentDidMount() {
+    const _this = this;
+    getCars().then((cars) => {
+      _this.setState({ carList: cars });
+    });
+  }
 
   findCar = (id) => {
     const cars = this.state.carList;
