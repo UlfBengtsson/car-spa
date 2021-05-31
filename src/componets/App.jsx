@@ -11,48 +11,7 @@ class App extends Component {
   state = {
     detailsCar: null,
     createCar: false,
-    carList: [
-      {
-        id: 1,
-        brand: "Saab",
-        model: "900 Turbo",
-        year: "1989",
-        mileage: 65000,
-        color: "dark blue",
-      },
-      {
-        id: 2,
-        brand: "BMW",
-        model: "525i",
-        year: "2001",
-        mileage: 25000,
-        color: "dark blue",
-      },
-      {
-        id: 3,
-        brand: "Volvo",
-        model: "740",
-        year: "1987",
-        mileage: 71000,
-        color: "green",
-      },
-      {
-        id: 4,
-        brand: "Opel",
-        model: "Kadett",
-        year: "1982",
-        mileage: 88000,
-        color: "red",
-      },
-      {
-        id: 5,
-        brand: "Golf",
-        model: "GTi",
-        year: "1995",
-        mileage: 15000,
-        color: "black",
-      },
-    ],
+    carList: [],
   };
 
   findCar = (id) => {
@@ -101,15 +60,19 @@ class App extends Component {
 
   addCar = (car) => {
     const carList = this.state.carList;
-    const newId =
-      carList.reduce((rowCar, highest) => {
-        if (rowCar.id > highest.id) {
-          return rowCar.id;
-        }
-        return highest;
-      }).id + 1; //plus 1 to make new id higher then any id currently in carList.
-    //console.log("new Id: ", newId);
-    car.id = newId;
+    if (carList === null || carList.length < 1) {
+      car.id = 1;
+    } else {
+      const newId =
+        carList.reduce((rowCar, highest) => {
+          if (rowCar.id > highest.id) {
+            return rowCar.id;
+          }
+          return highest;
+        }).id + 1; //plus 1 to make new id higher then any id currently in carList.
+      //console.log("new Id: ", newId);
+      car.id = newId;
+    }
 
     carList.push(car);
 

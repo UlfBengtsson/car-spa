@@ -6,7 +6,7 @@ const CarTable = (props) => {
       <tr key={car.id}>
         <td>{car.brand}</td>
         <td>{car.model}</td>
-        <td>{car.year}</td>
+        <td>{car.price}</td>
         <td
           className="btn btn-info"
           onClick={() => {
@@ -25,7 +25,7 @@ const CarTable = (props) => {
           <tr>
             <th>Brand</th>
             <th>Model</th>
-            <th>Year</th>
+            <th>Price</th>
             <th></th>
           </tr>
         </thead>

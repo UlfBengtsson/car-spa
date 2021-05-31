@@ -13,17 +13,10 @@ const CarDetails = (props) => {
           <p>{props.car.model}</p>
         </li>
         <li className="list-group-item">
-          <b>Year:</b>
-          <p>{props.car.year}</p>
+          <b>Price:</b>
+          <p>{props.car.price}</p>
         </li>
-        <li className="list-group-item">
-          <b>Mileage:</b>
-          <p>{props.car.mileage}</p>
-        </li>
-        <li className="list-group-item">
-          <b>Color:</b>
-          <p>{props.car.color}</p>
-        </li>
+
         <li className="list-group-item">
           <b>Actions:</b>
           <button className="btn btn-secondary" onClick={props.closeDetails}>

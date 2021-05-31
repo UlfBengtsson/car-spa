@@ -1,13 +1,4 @@
 import React, { Component } from "react";
-
-/*
-id: 1,
-        brand: "Saab",
-        model: "900 Turbo",
-        year: "1989",
-        mileage: 65000,
-        color: "dark blue",
-*/
 class CarCreate extends Component {
   createCar = (event) => {
     event.preventDefault();
@@ -16,9 +7,7 @@ class CarCreate extends Component {
       id: 0,
       brand: event.target["brand"].value,
       model: event.target["model"].value,
-      year: Number(event.target["year"].value),
-      mileage: Number(event.target["mileage"].value),
-      color: event.target["color"].value,
+      price: Number(event.target["price"].value),
     };
 
     this.props.addCar(car);
@@ -58,43 +47,20 @@ class CarCreate extends Component {
             />
           </div>
           <div className="row mb-2">
-            <label htmlFor="year" className="col-2 mt-2">
-              Year:
+            <label htmlFor="price" className="col-2 mt-2">
+              Price:
             </label>
             <input
-              id="year"
+              id="price"
               type="number"
               required
               step="1"
-              min="1886"
+              min="1"
               className="form-control col-10"
-              placeholder="Enter Year"
+              placeholder="Enter Price"
             />
           </div>
-          <div className="row mb-2">
-            <label htmlFor="mileage" className="col-2 mt-2">
-              Mileage:
-            </label>
-            <input
-              id="mileage"
-              type="number"
-              step="1000"
-              min="1000"
-              className="form-control col-10"
-              placeholder="Enter Mileage"
-            />
-          </div>
-          <div className="row mb-2">
-            <label htmlFor="color" className="col-2 mt-2">
-              Brand:
-            </label>
-            <input
-              id="color"
-              type="text"
-              className="form-control col-10"
-              placeholder="Enter Color"
-            />
-          </div>
+
           <div className="row d-flex justify-content-center">
             <input
               type="reset"
