@@ -131,7 +131,7 @@ class App extends Component {
       );
 
     return (
-      <div>
+      <React.Fragment>
         <Header />
 
         <div className="container stay-clear">
@@ -144,7 +144,7 @@ class App extends Component {
         </div>
 
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
