@@ -10,7 +10,7 @@ const CarDetails = (props) => {
         </li>
         <li className="list-group-item">
           <b>Model:</b>
-          <p>{props.car.model}</p>
+          <p>{props.car.modelName}</p>
         </li>
         <li className="list-group-item">
           <b>Price:</b>

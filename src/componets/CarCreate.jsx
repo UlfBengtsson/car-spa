@@ -4,10 +4,9 @@ class CarCreate extends Component {
     event.preventDefault();
 
     const car = {
-      id: 0,
-      brand: event.target["brand"].value,
-      model: event.target["model"].value,
-      price: Number(event.target["price"].value),
+      Brand: event.target["brand"].value,
+      ModelName: event.target["model"].value,
+      Price: Number(event.target["price"].value),
     };
 
     this.props.addCar(car);

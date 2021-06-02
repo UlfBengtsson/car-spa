@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import CarTable from "./CarTable";
 import CarDetails from "./CarDetails";
 import CarCreate from "./CarCreate";
-import getCars from "../api/carsApi";
+import getCars, { getCarById, createCar, deleteCar } from "../api/carsApi";
 
 import "../css/App.css";
 
@@ -22,19 +22,20 @@ class App extends Component {
     });
   }
 
-  findCar = (id) => {
-    const cars = this.state.carList;
+  findCar = async (id) => {
+    /*const cars = this.state.carList;
     let foundCar = null;
     cars.forEach((element) => {
       if (element.id === id) {
         foundCar = element;
       }
-    });
-    return foundCar;
+    });*/
+
+    return await getCarById(id);
   };
 
-  showCar = (id) => {
-    const car = this.findCar(id);
+  showCar = async (id) => {
+    const car = await this.findCar(id);
     if (car != null) {
       this.setState({
         detailsCar: car,
@@ -48,26 +49,34 @@ class App extends Component {
     });
   };
 
-  deleteCar = (id) => {
+  deleteCarHandler = (id) => {
     const car = this.findCar(id);
     if (car != null) {
-      const cars = this.state.carList;
-      cars.splice(cars.indexOf(car), 1);
-      this.setState({
-        carList: cars,
-        detailsCar: null,
-      });
+      if (deleteCar(id)) {
+        const cars = this.state.carList;
+        cars.forEach((element) => {
+          if (element.id === id) {
+            cars.pop(element);
+          }
+        });
+
+        this.setState({
+          carList: cars,
+          detailsCar: null,
+        });
+      }
     }
   };
 
-  createCar = () => {
+  showCreateCar = () => {
     this.setState({
       createCar: true,
     });
   };
 
-  addCar = (car) => {
+  addCar = async (car) => {
     const carList = this.state.carList;
+    /*
     if (carList === null || carList.length < 1) {
       car.id = 1;
     } else {
@@ -81,8 +90,14 @@ class App extends Component {
       //console.log("new Id: ", newId);
       car.id = newId;
     }
+*/
+    car = await createCar(car);
 
-    carList.push(car);
+    console.log(car);
+
+    if (car !== undefined) {
+      carList.push(car);
+    }
 
     this.setState({
       carList: carList,
@@ -102,13 +117,13 @@ class App extends Component {
         <CarDetails
           car={this.state.detailsCar}
           closeDetails={this.closeDetails}
-          deleteCar={this.deleteCar}
+          deleteCar={this.deleteCarHandler}
         />
       ) : this.state.createCar ? (
         <CarCreate addCar={this.addCar} closeCreate={this.closeCreate} />
       ) : (
-        <div>
-          <button onClick={this.createCar} className="btn btn-success">
+        <div className="col-md-6">
+          <button onClick={this.showCreateCar} className="btn btn-success">
             Add Car
           </button>
           <p>Click on Details button to see more information here.</p>

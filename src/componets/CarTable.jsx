@@ -5,14 +5,16 @@ const CarTable = (props) => {
     return (
       <tr key={car.id}>
         <td>{car.brand}</td>
-        <td>{car.model}</td>
+        <td>{car.modelName}</td>
         <td>{car.price}</td>
-        <td
-          className="btn btn-info"
-          onClick={() => {
-            props.showCar(car.id);
-          }}>
-          Details
+        <td>
+          <button
+            onClick={() => {
+              props.showCar(car.id);
+            }}
+            className="btn btn-info">
+            Details
+          </button>
         </td>
       </tr>
     );
