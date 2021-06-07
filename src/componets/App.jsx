@@ -4,12 +4,18 @@ import Footer from "./Footer";
 import CarTable from "./CarTable";
 import CarDetails from "./CarDetails";
 import CarCreate from "./CarCreate";
-import getCars, { getCarById, createCar, deleteCar } from "../api/carsApi";
+import getCars, {
+  getCarById,
+  createCar,
+  deleteCar,
+  getBrands,
+} from "../api/carsApi";
 
 import "../css/App.css";
 
 class App extends Component {
   state = {
+    brandList: [],
     detailsCar: null,
     createCar: false,
     carList: [],
@@ -17,8 +23,13 @@ class App extends Component {
 
   componentDidMount() {
     const _this = this;
+
     getCars().then((cars) => {
       _this.setState({ carList: cars });
+    });
+
+    getBrands().then((brands) => {
+      _this.setState({ brandList: brands });
     });
   }
 
@@ -54,12 +65,19 @@ class App extends Component {
     if (car != null) {
       if (deleteCar(id)) {
         const cars = this.state.carList;
+
+        for (let index = 0; index < cars.length; index++) {
+          if (cars[index].id === id) {
+            cars.splice(index, 1);
+          }
+        }
+        /*
         cars.forEach((element) => {
           if (element.id === id) {
-            cars.pop(element);
+            cars.pop(element);//pop removes the last element, so if we want to remove somthing other then that, we cant use pop.            
           }
         });
-
+        */
         this.setState({
           carList: cars,
           detailsCar: null,
@@ -120,7 +138,11 @@ class App extends Component {
           deleteCar={this.deleteCarHandler}
         />
       ) : this.state.createCar ? (
-        <CarCreate addCar={this.addCar} closeCreate={this.closeCreate} />
+        <CarCreate
+          addCar={this.addCar}
+          closeCreate={this.closeCreate}
+          brandArray={this.state.brandList}
+        />
       ) : (
         <div className="col-md-6">
           <button onClick={this.showCreateCar} className="btn btn-success">

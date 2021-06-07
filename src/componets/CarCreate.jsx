@@ -13,6 +13,10 @@ class CarCreate extends Component {
   };
 
   render() {
+    const options = this.props.brandArray.map((brand) => {
+      return <option value={brand.id}>{brand.name}</option>;
+    });
+
     return (
       <div className="col-md-6">
         <div className="row">
@@ -24,14 +28,9 @@ class CarCreate extends Component {
             <label htmlFor="brand" className="col-2 mt-2">
               Brand:
             </label>
-            <input
-              id="brand"
-              type="text"
-              required
-              minLength="2"
-              className="form-control col-10"
-              placeholder="Enter Brand"
-            />
+            <select id="brand" required className="form-control col-10">
+              {options}
+            </select>
           </div>
           <div className="row mb-2">
             <label htmlFor="model" className="col-2 mt-2">

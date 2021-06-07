@@ -6,15 +6,25 @@ import axios from 'axios';
     });
     
 }*/
-
+let apiUrl = 'https://localhost:44348/api/React';
+/*
+export function setApiUrl(url) {
+    apiUrl = url;
+}
+*/
 export default function getCars() {
-    return fetch('https://localhost:44348/api/React')
+    return fetch(apiUrl)
+        .then(data => data.json());
+}
+
+export function getBrands() {
+    return fetch(apiUrl + '/Brands')
         .then(data => data.json());
 }
 
 export async function getCarById(id) {
     try {
-        let response = await fetch('https://localhost:44348/api/React/' + id);
+        let response = await fetch(apiUrl + id);
         //console.log(response);
         let json = await response.json();
         //console.log(json);
@@ -28,7 +38,7 @@ export async function getCarById(id) {
 export async function createCar(car) {
 
     try {
-        let response = await axios.post('https://localhost:44348/api/React/', {
+        let response = await axios.post(apiUrl, {
             Brand: car.Brand,
             ModelName: car.ModelName,
             Price: car.Price
@@ -46,7 +56,7 @@ export async function createCar(car) {
 export async function deleteCar(id) {
 
     try {
-        let response = await axios.delete('https://localhost:44348/api/React/' + id);
+        let response = await axios.delete(apiUrl + id);
         console.log(response);
 
         return true;
