@@ -9,12 +9,18 @@ class CarCreate extends Component {
       Price: Number(event.target["price"].value),
     };
 
+    console.log("car to create:", car);
+
     this.props.addCar(car);
   };
 
   render() {
     const options = this.props.brandArray.map((brand) => {
-      return <option value={brand.id}>{brand.name}</option>;
+      return (
+        <option key={brand.id} value={brand.id}>
+          {brand.name}
+        </option>
+      );
     });
 
     return (
