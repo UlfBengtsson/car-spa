@@ -1,6 +1,16 @@
 import React from "react";
 
 const CarDetails = (props) => {
+  const rightToDelete = props.loginStatus ? (
+    <button
+      className="btn btn-danger"
+      onClick={() => props.deleteCar(props.car.id)}>
+      Delete
+    </button>
+  ) : (
+    ""
+  );
+
   return (
     <div className="col-md-6">
       <ul className="list-group">
@@ -22,11 +32,8 @@ const CarDetails = (props) => {
           <button className="btn btn-secondary" onClick={props.closeDetails}>
             Close
           </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => props.deleteCar(props.car.id)}>
-            Delete
-          </button>
+
+          {rightToDelete}
         </li>
       </ul>
     </div>

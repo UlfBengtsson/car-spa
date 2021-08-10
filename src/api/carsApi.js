@@ -24,7 +24,7 @@ export function getBrands() {
 
 export async function getCarById(id) {
     try {
-        let response = await fetch(apiUrl + id);
+        let response = await fetch(apiUrl + '/' + id);
         //console.log(response);
         let json = await response.json();
         //console.log(json);
@@ -53,10 +53,10 @@ export async function createCar(car) {
     }
 }
 
-export async function deleteCar(id) {
+export async function deleteCar(id, token) {
 
     try {
-        let response = await axios.delete(apiUrl + id);
+        let response = await axios.delete(apiUrl + '/' + id, { headers: { "Authorization": `Bearer ${token}` } });
         console.log(response);
 
         return true;

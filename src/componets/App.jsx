@@ -11,6 +11,8 @@ import getCars, {
   getBrands,
 } from "../api/carsApi";
 
+import { loginUser, getUserToken } from "../api/userApi";
+
 import "../css/App.css";
 
 class App extends Component {
@@ -19,6 +21,7 @@ class App extends Component {
     detailsCar: null,
     createCar: false,
     carList: [],
+    userToken: null,
   };
 
   componentDidMount() {
@@ -32,6 +35,20 @@ class App extends Component {
       _this.setState({ brandList: brands });
     });
   }
+
+  login = (loginData) => {
+    const _this = this;
+    loginUser(loginData).then((data) => {
+      console.log(data);
+      if (data === "Ok") {
+        _this.setState({ userToken: getUserToken() });
+      }
+    });
+  };
+
+  logout = () => {
+    this.setState({ userToken: null });
+  };
 
   findCar = async (id) => {
     /*const cars = this.state.carList;
@@ -62,8 +79,8 @@ class App extends Component {
 
   deleteCarHandler = (id) => {
     const car = this.findCar(id);
-    if (car != null) {
-      if (deleteCar(id)) {
+    if (car != null && this.state.userToken != null) {
+      if (deleteCar(id, this.state.userToken)) {
         const cars = this.state.carList;
 
         for (let index = 0; index < cars.length; index++) {
@@ -136,6 +153,7 @@ class App extends Component {
           car={this.state.detailsCar}
           closeDetails={this.closeDetails}
           deleteCar={this.deleteCarHandler}
+          loginStatus={this.state.userToken === null ? false : true}
         />
       ) : this.state.createCar ? (
         <CarCreate
@@ -154,7 +172,11 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <Header />
+        <Header
+          login={this.login}
+          logout={this.logout}
+          status={this.state.userToken === null ? true : false}
+        />
 
         <div className="container stay-clear">
           <h3>Car SPA</h3>
